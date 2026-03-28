@@ -1,0 +1,7 @@
+huggingface_hub
+llama-cpp-python==0.3.4
+lightgbm
+xgboost
+scikit-learn
+pandas
+numpy
