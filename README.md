@@ -1,4 +1,4 @@
-# 🤖 Multi-Agent Regression System
+# Multi-Agent Regression System
 
 Мультиагентная система для решения задач регрессии на табличных данных.  
 Архитектура вдохновлена **MLE-STAR** (Search & Targeted Refinement).  
@@ -15,9 +15,9 @@ DataAnalystAgent  →  FeatureEngineerAgent  →  ModelAgent (LightGBM + XGBoost
                               ▼
                     OUTER LOOP (×3 шага):
                       AblationAgent → summary → plan
-                        INNER LOOP (×5 шагов):
-                          ModelAgent.run_refined(plan) → evaluate (MSE)
-                          FeatureEngineerAgent.propose_new_plan
+                      INNER LOOP (×5 шагов):
+                        ModelAgent.run_refined(plan) → evaluate (MSE)
+                        FeatureEngineerAgent.propose_new_plan
                               │
                     EnsembleAgent (×5 раундов)
                               │
@@ -42,12 +42,6 @@ multi-agent-regression/
 │
 ├── main.py                        # Точка входа: загрузка модели, данных, запуск
 ├── requirements.txt
-│
-├── data/                          # Данные (не коммитить в git)
-│   ├── train.csv
-│   └── test.csv
-│
-├── models/                        # GGUF-модель (скачивается автоматически)
 │
 ├── docs/
 │   └── methodology.md             # Описание и обоснование методов
@@ -121,13 +115,6 @@ data/
 └── test.csv
 ```
 
-При работе в Kaggle раскомментируйте соответствующие строки в `main.py`:
-
-```python
-# df_train = pd.read_csv('/kaggle/input/mws-ai-agents-2026/train.csv')
-# df_test  = pd.read_csv('/kaggle/input/mws-ai-agents-2026/test.csv')
-```
-
 ---
 
 ## Запуск
@@ -185,24 +172,7 @@ models/qwen2.5-coder-7b-instruct-q4_k_m.gguf
 
 ---
 
-## Безопасность
+## Методология
 
-Система содержит несколько уровней защиты от некорректного кода, генерируемого LLM:
+Подробное описание и обоснование выбранных методов и моделей можно найти в /docs/methodology.md
 
-- **`check_code_safety`** — блокирует `os.system`, `subprocess`, запись файлов
-- **`check_data_leakage`** — предупреждает о `fit` на тестовых данных
-- **`validate_input_data`** — проверяет корректность входного DataFrame
-- **`DebuggerAgent`** — автоматически исправляет ошибки выполнения (до `MAX_DEBUG` попыток)
-
----
-
-## Метрика
-
-Все агенты, мониторинг и отбор лучшей модели ориентированы на **MSE (Mean Squared Error)** — чем меньше, тем лучше.
-
----
-
-## Лицензия
-
-Код системы — MIT.  
-Модель Qwen2.5-Coder-7B — [Apache 2.0](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct).
