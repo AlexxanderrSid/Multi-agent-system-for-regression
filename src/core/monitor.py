@@ -32,7 +32,7 @@ class Monitor:
             score: Optional[float] = None, ok: bool = True):
         r = Record(datetime.now().strftime('%H:%M:%S'), agent, action, score, ok)
         self.records.append(r)
-        icon = '✅' if ok else '❌'
+        icon = '✅' if ok else '-'
         s = f' | MSE={score:.4f}' if score is not None else ''
         logger.info(f'{icon} [{agent}] {action}{s}')
         if score is not None and score < self.best_score:

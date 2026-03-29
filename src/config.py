@@ -1,11 +1,11 @@
 import warnings
 import logging
 
-OUTER_LOOP_STEPS  = 3
-INNER_LOOP_STEPS  = 5
-MAX_DEBUG         = 3
-ENSEMBLE_ROUNDS   = 5
-RANDOM_STATE      = 42
+OUTER_LOOP_STEPS = 3
+INNER_LOOP_STEPS = 3
+MAX_DEBUG = 3
+ENSEMBLE_ROUNDS = 3
+RANDOM_STATE = 42
 
 warnings.filterwarnings('ignore')
 

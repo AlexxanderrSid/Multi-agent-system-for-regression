@@ -22,8 +22,8 @@ class ModelAgent:
     )
 
     def __init__(self, llm: LLMClient, kb: KnowledgeBase):
-        self.llm  = llm
-        self.kb   = kb
+        self.llm = llm
+        self.kb = kb
         self.name = 'ModelAgent'
 
     def run(self, info: str, model_name: str = 'LightGBM') -> str:

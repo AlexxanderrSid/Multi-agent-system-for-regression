@@ -34,10 +34,10 @@ _KB_DOCS = [
         'topic': 'models regression',
         'text': (
             'Best models for tabular regression (MSE):\n'
-            '1. LightGBM  — fast, handles NaN natively, top performer\n'
-            '2. XGBoost   — stable, good defaults\n'
-            '3. CatBoost  — great for categoricals\n'
-            '4. RandomForest — robust baseline\n'
+            '1. LightGBM - fast, handles NaN natively, top performer\n'
+            '2. XGBoost - stable, good defaults\n'
+            '3. CatBoost - great for categoricals\n'
+            '4. RandomForest - robust baseline\n'
             'Use random 80/20 split. Metric: mean_squared_error (lower is better).\n'
             'Store model as best_model, features as feature_cols, score as val_score (MSE).'
         )

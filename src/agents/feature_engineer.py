@@ -21,8 +21,8 @@ class FeatureEngineerAgent:
     )
 
     def __init__(self, llm: LLMClient, kb: KnowledgeBase):
-        self.llm  = llm
-        self.kb   = kb
+        self.llm = llm
+        self.kb = kb
         self.name = 'FeatureEngineerAgent'
         self.plan_trajectory: List[Dict] = []
 

@@ -21,9 +21,9 @@ class EnsembleAgent:
     )
 
     def __init__(self, llm: LLMClient, kb: KnowledgeBase):
-        self.llm     = llm
-        self.kb      = kb
-        self.name    = 'EnsembleAgent'
+        self.llm = llm
+        self.kb = kb
+        self.name = 'EnsembleAgent'
         self.history: List[Dict] = []
 
     def propose_plan(self, models_info: str) -> str:

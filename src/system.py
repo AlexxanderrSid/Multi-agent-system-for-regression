@@ -39,23 +39,23 @@ class MultiAgentMLSystem:
             raise ValueError(f'Input validation failed: {issues}')
 
         self.ctx: Dict[str, Any] = {
-            'df':      df_train.copy(),
+            'df': df_train.copy(),
             'df_test': df_test.copy() if df_test is not None else None,
-            'np':      np,
-            'pd':      pd,
+            'np': np,
+            'pd': pd,
         }
 
-        self.data_agent     = DataAnalystAgent(llm, kb)
-        self.feat_agent     = FeatureEngineerAgent(llm, kb)
-        self.model_agent    = ModelAgent(llm, kb)
+        self.data_agent = DataAnalystAgent(llm, kb)
+        self.feat_agent = FeatureEngineerAgent(llm, kb)
+        self.model_agent = ModelAgent(llm, kb)
         self.ablation_agent = AblationAgent(llm)
         self.ensemble_agent = EnsembleAgent(llm, kb)
-        self.debugger       = DebuggerAgent(llm)
+        self.debugger = DebuggerAgent(llm)
 
-        self.best_score     = float('inf')
-        self.best_code      = ''
+        self.best_score = float('inf')
+        self.best_code = ''
         self.models_reg: List[Dict] = []
-        self.tried_plans:  List[str] = []
+        self.tried_plans: List[str] = []
 
         logger.info('System initialised. Train=%s Test=%s',
                     df_train.shape,
@@ -94,9 +94,9 @@ class MultiAgentMLSystem:
     def _save_model(self, score: float):
         if 'best_model' in self.ctx:
             self.models_reg.append({
-                'model':          self.ctx['best_model'],
-                'feature_cols':   self.ctx.get('feature_cols', []),
-                'val_score':      score,
+                'model': self.ctx['best_model'],
+                'feature_cols': self.ctx.get('feature_cols', []),
+                'val_score': score,
                 'label_encoders': self.ctx.get('label_encoders', {}),
             })
 
@@ -132,7 +132,7 @@ class MultiAgentMLSystem:
             MON.log(self.model_agent.name, f'train_{model_name}', score=score)
             if score < self.best_score:
                 self.best_score = score
-                self.best_code  = sanitize_code(code)
+                self.best_code = sanitize_code(code)
             self._save_model(score)
         else:
             print('  ⚠️ Не удалось получить score:', out[:200])
@@ -185,7 +185,7 @@ class MultiAgentMLSystem:
 
             if best_inner < self.best_score:
                 self.best_score = best_inner
-                self.best_code  = best_code_inner
+                self.best_code = best_code_inner
                 cur_code = best_code_inner
                 self._save_model(best_inner)
                 print(f'     Улучшение → MSE={self.best_score:.4f}')
@@ -245,9 +245,9 @@ class MultiAgentMLSystem:
             return
 
         try:
-            model    = self.ctx['best_model']
-            feat     = self.ctx['feature_cols']
-            les      = self.ctx.get('label_encoders', {})
+            model = self.ctx['best_model']
+            feat = self.ctx['feature_cols']
+            les = self.ctx.get('label_encoders', {})
 
             avail = [c for c in feat if c in df_test.columns]
             X_test = df_test[avail].copy()
@@ -279,7 +279,7 @@ class MultiAgentMLSystem:
 
         s1, code1 = self.step_train('LightGBM')
         s2, code2 = self.step_train('XGBoost')
-        cur_code  = code1 if s1 <= s2 else code2
+        cur_code = code1 if s1 <= s2 else code2
 
         if self.best_score < float('inf'):
             cur_code = self.step_refine(cur_code)

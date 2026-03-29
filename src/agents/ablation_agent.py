@@ -25,8 +25,8 @@ class AblationAgent:
     SYS_PLAN = 'You are a Kaggle expert planning improvements for regression (minimize MSE).'
 
     def __init__(self, llm: LLMClient):
-        self.llm    = llm
-        self.name   = 'AblationAgent'
+        self.llm = llm
+        self.name = 'AblationAgent'
         self.memory: List[str] = []
 
     def run(self, code_snippet: str, info: str) -> str:

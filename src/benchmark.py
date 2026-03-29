@@ -25,10 +25,10 @@ def run_benchmark(df: pd.DataFrame) -> pd.DataFrame:
 
     kf = KFold(5, shuffle=True, random_state=RANDOM_STATE)
     baselines = {
-        'Ridge':                   Ridge(),
-        'RandomForest':            RandomForestRegressor(100, random_state=RANDOM_STATE),
-        'GradientBoosting':        GradientBoostingRegressor(n_estimators=100, random_state=RANDOM_STATE),
-        'LightGBM (defaults)':     lgb.LGBMRegressor(n_estimators=100, random_state=RANDOM_STATE, verbose=-1),
+        'Ridge': Ridge(),
+        'RandomForest': RandomForestRegressor(100, random_state=RANDOM_STATE),
+        'GradientBoosting': GradientBoostingRegressor(n_estimators=100, random_state=RANDOM_STATE),
+        'LightGBM (defaults)': lgb.LGBMRegressor(n_estimators=100, random_state=RANDOM_STATE, verbose=-1),
     }
 
     rows = []
