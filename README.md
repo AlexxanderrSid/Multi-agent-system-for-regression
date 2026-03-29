@@ -84,7 +84,7 @@ multi-agent-regression/
 ### 1. Клонировать репозиторий
 
 ```bash
-git clone https://github.com/<your-username>/multi-agent-regression.git
+git clone https://github.com/<your-username>/Multi-agent-system-for-regression.git
 cd multi-agent-regression
 ```
 
