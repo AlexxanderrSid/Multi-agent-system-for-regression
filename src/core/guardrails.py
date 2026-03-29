@@ -6,7 +6,7 @@ _FORBIDDEN = [
     r'os\.system\(',
     r'subprocess\.',
     r'__import__\(',
-    r'open\([^)]*["\''][wWaA]',
+    r"open\([^)]*['\"][wWaA]",
     r'shutil\.rmtree',
 ]
 
