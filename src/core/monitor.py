@@ -44,18 +44,18 @@ class Monitor:
         rows = [r for r in self.records if r.score is not None]
         lines = [
             '\n' + '='*55,
-            '📊 ИТОГОВЫЙ ОТЧЁТ',
+            'ИТОГОВЫЙ ОТЧЁТ',
             '='*55,
-            f'⏱  Время: {elapsed:.0f}с',
-            f'🔗 LLM вызовов: {self.llm_calls}',
-            f'⚙  Выполнений кода: {self.exec_calls}',
-            f'🔧 Debug попыток: {self.debug_calls}',
-            f'🏆 Лучший MSE: {self.best_score:.4f}  [{self.best_label}]',
+            f'Время: {elapsed:.0f}с',
+            f'LLM вызовов: {self.llm_calls}',
+            f'Выполнений кода: {self.exec_calls}',
+            f'Debug попыток: {self.debug_calls}',
+            f'Лучший MSE: {self.best_score:.4f}  [{self.best_label}]',
             '',
-            '📋 История score (MSE):',
+            'История score (MSE):',
         ]
         for r in rows:
-            flag = '🥇' if r.score == self.best_score else '  '
+            flag = '✅' if r.score == self.best_score else '  '
             lines.append(f'  {flag} {r.ts} [{r.agent}] {r.action}: {r.score:.4f}')
         lines.append('='*55)
         return '\n'.join(lines)

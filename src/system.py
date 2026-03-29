@@ -102,27 +102,27 @@ class MultiAgentMLSystem:
 
     def step_clean(self):
         print('\n' + '='*50)
-        print('📊 ШАГ 1: Очистка данных')
+        print('ШАГ 1: Очистка данных')
         print('='*50)
         code = self.data_agent.run(self._info())
         ok, out = self._run(code, 'DataClean')
-        print('✅' if ok else '⚠️ ошибка (продолжаем)', '|', out[:120])
+        print('✅' if ok else 'ошибка (продолжаем)', '|', out[:120])
         MON.log(self.data_agent.name, 'clean', ok=ok)
 
     def step_features(self, hint: str = '') -> str:
         print('\n' + '='*50)
-        print('🔧 ШАГ 2: Feature Engineering')
+        print('ШАГ 2: Feature Engineering')
         print('='*50)
         cols = str(list(self.ctx['df'].columns))
         code = self.feat_agent.run(cols, hint)
         ok, out = self._run(code, 'FeatEng')
-        print('✅' if ok else '⚠️ ошибка', '|', out[:120])
+        print('✅' if ok else 'ошибка', '|', out[:120])
         MON.log(self.feat_agent.name, 'features', ok=ok)
         return sanitize_code(code)
 
     def step_train(self, model_name: str = 'LightGBM') -> Tuple[float, str]:
         print('\n' + '='*50)
-        print(f'🤖 ШАГ 3: Обучение ({model_name})')
+        print(f'ШАГ 3: Обучение ({model_name})')
         print('='*50)
         code = self.model_agent.run(self._info(), model_name)
         ok, out = self._run(code, f'Train_{model_name}')
@@ -140,7 +140,7 @@ class MultiAgentMLSystem:
 
     def step_refine(self, cur_code: str) -> str:
         print('\n' + '='*50)
-        print('🔬 ШАГ 4: Ablation + Refinement')
+        print('ШАГ 4: Ablation + Refinement')
         print('='*50)
 
         info = self._info()
@@ -188,9 +188,9 @@ class MultiAgentMLSystem:
                 self.best_code  = best_code_inner
                 cur_code = best_code_inner
                 self._save_model(best_inner)
-                print(f'     ✅ Улучшение → MSE={self.best_score:.4f}')
+                print(f'     Улучшение → MSE={self.best_score:.4f}')
             else:
-                print(f'     → Без улучшения (best MSE={self.best_score:.4f})')
+                print(f'     Без улучшения (best MSE={self.best_score:.4f})')
 
             self.tried_plans.append(plan)
 
@@ -198,11 +198,11 @@ class MultiAgentMLSystem:
 
     def step_ensemble(self):
         print('\n' + '='*50)
-        print('🎯 ШАГ 5: Ансамблирование')
+        print('ШАГ 5: Ансамблирование')
         print('='*50)
 
         if len(self.models_reg) < 2:
-            print('⚠️  Меньше 2 моделей — пропускаем')
+            print('Меньше 2 моделей — пропускаем')
             return
 
         m_info = '\n'.join(
@@ -229,11 +229,11 @@ class MultiAgentMLSystem:
                     self.ensemble_agent.history.append({'plan': plan, 'score': sc})
                     if sc < self.best_score:
                         self.best_score = sc
-                        print(f'    ✅ Новый лучший MSE: {sc:.4f}')
+                        print(f'    Новый лучший MSE: {sc:.4f}')
 
     def step_submission(self):
         print('\n' + '='*50)
-        print('📤 ШАГ 6: Генерация submission.csv')
+        print('ШАГ 6: Генерация submission.csv')
         print('='*50)
 
         df_test = self.ctx.get('df_test')
@@ -270,14 +270,10 @@ class MultiAgentMLSystem:
                   f'mean={preds.mean():.3f}')
             MON.log('System', 'submission_saved')
         except Exception as e:
-            print(f'❌ Ошибка submission: {e}')
+            print(f'Ошибка submission: {e}')
             logger.error(traceback.format_exc())
 
     def run(self) -> float:
-        print('\n' + '🚀 ' * 16)
-        print('МУЛЬТИАГЕНТНАЯ СИСТЕМА — СТАРТ')
-        print('🚀 ' * 16)
-
         self.step_clean()
         self.step_features()
 
@@ -288,7 +284,7 @@ class MultiAgentMLSystem:
         if self.best_score < float('inf'):
             cur_code = self.step_refine(cur_code)
         else:
-            print('⚠️  Пропуск рефайнмента — нет начального score')
+            print('Пропуск рефайнмента — нет начального score')
 
         self.step_ensemble()
         self.step_submission()

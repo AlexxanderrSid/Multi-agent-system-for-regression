@@ -13,7 +13,7 @@ from src.config import RANDOM_STATE
 def run_benchmark(df: pd.DataFrame) -> pd.DataFrame:
     """5-fold CV по базовым моделям для сравнения с мультиагентной системой."""
     print('\n' + '='*50)
-    print('📊 BENCHMARK — базовые модели')
+    print('BENCHMARK — базовые модели')
     print('='*50)
 
     X = df.drop(columns=['target']).copy()
@@ -43,12 +43,12 @@ def run_benchmark(df: pd.DataFrame) -> pd.DataFrame:
 
 def compare(bench: pd.DataFrame, mas_score: float) -> pd.DataFrame:
     mas_row = pd.DataFrame([{
-        'Model': '🤖 MultiAgent (Qwen2.5-Coder)',
+        'Model': 'MultiAgent (Qwen2.5-Coder)',
         'MSE': mas_score, 'Std': 0.0, 'Type': 'MultiAgent'
     }])
     result = pd.concat([bench, mas_row], ignore_index=True)\
                .sort_values('MSE', ascending=True)
-    print('\n📊 Итоговое сравнение (MSE, меньше = лучше):')
+    print('\nИтоговое сравнение (MSE, меньше = лучше):')
     print(result.to_string(index=False))
     delta = mas_score - bench['MSE'].min()
     print(f'\n  Разница с лучшим baseline: {delta:+.4f} (отрицательное = улучшение)')
