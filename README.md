@@ -54,11 +54,11 @@ multi-agent-regression/
     ├── core/
     │   ├── guardrails.py          # Валидация входных данных, safety-проверки
     │   ├── executor.py            # Безопасное выполнение кода, extract_score
-    │   ├── monitor.py             # Monitor — логирование событий и метрик
-    │   └── llm_client.py          # LLMClient — обёртка над llama_cpp.Llama
+    │   ├── monitor.py             # Monitor - логирование событий и метрик
+    │   └── llm_client.py          # LLMClient - обёртка над llama_cpp.Llama
     │
     ├── rag/
-    │   └── knowledge_base.py      # KnowledgeBase — keyword-based RAG
+    │   └── knowledge_base.py      # KnowledgeBase - keyword-based RAG
     │
     └── agents/
         ├── data_analyst.py        # DataAnalystAgent
@@ -84,8 +84,8 @@ multi-agent-regression/
 ### 1. Клонировать репозиторий
 
 ```bash
-git clone https://github.com/<your-username>/Multi-agent-system-for-regression.git
-cd multi-agent-regression
+git clone https://github.com/AlexxanderrSid/Multi-agent-system-for-regression.git
+cd Multi-agent-system-for-regression
 ```
 
 ### 2. Установить зависимости
@@ -111,7 +111,7 @@ pip install -r requirements.txt
 
 ```
 data/
-├── train.csv   # должен содержать колонку 'target' (числовой тип)
+├── train.csv
 └── test.csv
 ```
 
